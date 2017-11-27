@@ -10,7 +10,7 @@
     CONFIG.TAB_NAME = '404';
 
     CONFIG.SPINNER_TIME = 5000;
-    CONFIG.SHOW_APP_TIME = 3000;
+    CONFIG.SHOW_APP_TIME = 10000;
     CONFIG.WAIT_FOR_TAB_TIME = 20000;
     CONFIG.WAIT_FOR_MODULE_TIME = 20000;
 
@@ -478,7 +478,6 @@
 
 
         ws.onopen = function() {
-            console.log('open');
 
             var test_id = getCookie(CONFIG.COOKIE_NAME);
 
@@ -861,6 +860,7 @@
         topLayer.classList.add('netvibes-ux', 'netvibes-ux-top-layer');
 
         this.show = function() {
+            document.documentElement.scrollTop = 0;
             document.body.classList.add('netvibes-ux-overflow-hidden');
             topLayer.classList.remove('netvibes-ux-hidden');
         }
@@ -1198,8 +1198,10 @@
 
             gui.hide();
 
+            var total = document.querySelectorAll("#maintable > div#modulesArea div.module").length;
+
             checker(function() {
-                return document.querySelector("#maintable > div#modulesArea div.module");
+                return document.querySelectorAll("#maintable > div#modulesArea div.module").length > total;
             }, function() {
                 datalogger.setCanAddModule(true, function(test) {
                     goto(CONFIG.STEPS.CAN_ADD_MODULE_YES);

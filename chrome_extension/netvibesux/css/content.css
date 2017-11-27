@@ -13,6 +13,7 @@
     border: none !important;
     border-radius: 0px !important;
     height: auto !important;
+    line-height: 25px !important;
 }
 
 /* top-layer */
@@ -39,6 +40,7 @@
 
 .netvibes-ux-title {
     font-size: 1.5em !important;
+    line-height: 1.7em !important;
     font-weight: bold !important;
 }
 
@@ -57,6 +59,7 @@
     color: #FFF !important;
     background-color: #999 !important;
     border-radius: 3px !important;
+    margin-top: 10px !important;
 }
 
 .netvibes-ux form input[type=text] {
