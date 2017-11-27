@@ -1,11 +1,15 @@
 const mongodb = require('mongodb');
 const WebSocket = require('ws');
-const ws = new WebSocket.Server({port: 3000});
+const ws = new WebSocket.Server({
+    port: process.env.DB_PORT || 3000
+});
+
 //    port: 3000, ssl: true, ssl_key: 'host.key', ssl_cert: 'host.cert' });
 const request = require('request');
 const htmlparser = require('node-html-parser');
 
 var url = "mongodb://localhost:27017/netvibesux";
+var url = "mongodb://" + process.env.DB_USER  + ":" + process.env.DB_PASSWORD  + "@ds139342.mlab.com:39342/netvibesux";
 var mongoose = require('mongoose');
 mongoose.connect(url);
 
