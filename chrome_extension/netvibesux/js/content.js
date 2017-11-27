@@ -3,7 +3,7 @@
     var CONFIG = {}
 
     CONFIG.SERVER = 'wss://netvibesux.herokuapp.com:3000';
-    CONFIG.SERVER = 'wss://localhost:8088';
+    //CONFIG.SERVER = 'wss://localhost:8088';
 
     CONFIG.COOKIE_NAME = 'NETVIBES_UX_TEST_ID';
     CONFIG.FIRST_TAB_NAME = 'Tab1';
@@ -478,6 +478,8 @@
 
 
         ws.onopen = function() {
+            console.log('open');
+
             var test_id = getCookie(CONFIG.COOKIE_NAME);
 
             execute('__start__', test_id, function(response) {
