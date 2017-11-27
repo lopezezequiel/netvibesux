@@ -12,7 +12,6 @@ const url = "mongodb://" + process.env.DB_USER  + ":" + process.env.DB_PASSWORD 
 
 
 const server = express()
-//  .use((req, res) => res.sendFile(INDEX) )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 
