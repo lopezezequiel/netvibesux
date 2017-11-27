@@ -4,8 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "6.2.0"
   },
   "author": "López Ricardo Ezequiel",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.5",
+    "node-html-parser": "^1.1.5",
+    "request": "^2.83.0",
+    "ws": "^3.3.2"
+  }
 }

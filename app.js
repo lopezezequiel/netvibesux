@@ -1,7 +1,6 @@
-const uuidv1 = require('uuid/v1');
 const mongodb = require('mongodb');
 const WebSocket = require('ws');
-const ws = new WebSocket.Server({ port: 8088 });
+const ws = new WebSocket.Server({ port: 3000 });
 const request = require('request');
 const htmlparser = require('node-html-parser');
 
