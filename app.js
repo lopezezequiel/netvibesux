@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const WebSocket = require('ws');
 const ws = new WebSocket.Server({
-    port: process.env.DB_PORT || 3000,
+    port: 3000,
     //ssl_key: 'host.key', ssl_cert: 'host.cert',
     host:'0.0.0.0'
 });
