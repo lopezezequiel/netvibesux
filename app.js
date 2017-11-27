@@ -1,10 +1,19 @@
 const mongodb = require('mongodb');
 const WebSocket = require('ws');
-const ws = new WebSocket.Server({
-    port: 3000,
-    //ssl_key: 'host.key', ssl_cert: 'host.cert',
-    //host:'0.0.0.0'
-});
+
+
+const express = require('express');
+const path = require('path');
+
+const PORT = process.env.PORT || 3000;
+const INDEX = path.join(__dirname, 'index.html');
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+
+const ws = new WebSocket.Server({server: server});
 
 //    port: 3000, ssl: true, ssl_key: 'host.key', ssl_cert: 'host.cert' });
 const request = require('request');
