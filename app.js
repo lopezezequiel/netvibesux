@@ -29,7 +29,8 @@ var MemoryInfoSchema = new Schema({
     heapUsage:    { type: Number },
     usage:    { type: Number },
     test: { type: Schema.Types.ObjectId, ref: 'Test' },
-    step: { type: String }
+    step: { type: String },
+    updated: { type: Date, default: Date.now }
 });
 
 var EmotionSchema = new Schema({
@@ -44,7 +45,8 @@ var EmotionSchema = new Schema({
     surprise: {type: Number},
     valence: {type: Number},
     test: { type: Schema.Types.ObjectId, ref: 'Test' },
-    step: { type: String }
+    step: { type: String },
+    updated: { type: Date, default: Date.now }
 });
 
 var AppearanceSchema = new Schema({
@@ -52,7 +54,8 @@ var AppearanceSchema = new Schema({
     glasses:    { type: String },
     age:    { type: String },
     ethnicity:    { type: String },
-    test: { type: Schema.Types.ObjectId, ref: 'Test' }
+    test: { type: Schema.Types.ObjectId, ref: 'Test' },
+    updated: { type: Date, default: Date.now }
 });
 
 var WCAGWarningSchema = new Schema({
@@ -60,7 +63,8 @@ var WCAGWarningSchema = new Schema({
     description:    { type: String },
     element:    { type: String },
     attribute:    { type: String },
-    test: { type: Schema.Types.ObjectId, ref: 'Test' }
+    test: { type: Schema.Types.ObjectId, ref: 'Test' },
+    updated: { type: Date, default: Date.now }
 });
 
 var WCAGErrorSchema = new Schema({
@@ -68,14 +72,16 @@ var WCAGErrorSchema = new Schema({
     description:    { type: String },
     element:    { type: String },
     attribute:    { type: String },
-    test: { type: Schema.Types.ObjectId, ref: 'Test' }
+    test: { type: Schema.Types.ObjectId, ref: 'Test' },
+    updated: { type: Date, default: Date.now }
 });
 
 var AltSchema = new Schema({
     total:    { type: Number },
     pass:    { type: Number },
     score:    { type: Number },
-    test: { type: Schema.Types.ObjectId, ref: 'Test' }
+    test: { type: Schema.Types.ObjectId, ref: 'Test' },
+    updated: { type: Date, default: Date.now }
 });
 
 var ContrastSchema = new Schema({
@@ -83,7 +89,8 @@ var ContrastSchema = new Schema({
     pass:    { type: Number },
     score:    { type: Number },
     type: { type: String, enum: ['normal', 'protanopia', 'protanomaly', 'deuteranopia', 'deuteranomaly']},
-    test: { type: Schema.Types.ObjectId, ref: 'Test' }
+    test: { type: Schema.Types.ObjectId, ref: 'Test' },
+    updated: { type: Date, default: Date.now }
 });
 
 var TestSchema = new Schema({
@@ -92,7 +99,8 @@ var TestSchema = new Schema({
     understandApp: { type: Boolean},
     canCreateTab: { type: Boolean},
     canAddModule: { type: Boolean},
-    step: { type: String }
+    step: { type: String },
+    updated: { type: Date, default: Date.now }
 });
 
 
