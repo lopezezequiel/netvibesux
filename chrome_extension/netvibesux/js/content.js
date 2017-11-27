@@ -860,7 +860,19 @@
         topLayer.classList.add('netvibes-ux', 'netvibes-ux-top-layer');
 
         this.show = function() {
-            document.documentElement.scrollTop = 0;
+            if(document.documentElement.scrollTop) {
+                document.documentElement.scrollTop = 0;
+            }
+
+            if(window.scrollY) {
+                window.scrollY = 0;
+            }
+
+            if(document.body.scrollTop) {
+                document.body.scrollTop = 0;
+            }
+
+
             document.body.classList.add('netvibes-ux-overflow-hidden');
             topLayer.classList.remove('netvibes-ux-hidden');
         }
