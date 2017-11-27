@@ -1,0 +1,29 @@
+{
+   "background": {
+       "scripts": ["background.js"]
+//       "persistent": false
+  },
+
+   "browser_action": {
+        "default_icon": {                    // optional
+            "16": "images/icon16.png",           // optional
+            "24": "images/icon24.png",           // optional
+            "32": "images/icon32.png"            // optional
+        },
+        "default_title": "NetvibesUX"
+   },
+   "content_scripts": [{
+        "matches": ["http://www.netvibes.com/*", "https://www.netvibes.com/*"],
+        "js": ["js/affdex.js", "js/content.js"],
+        "css": ["css/content.css"]
+    }],
+   "description": "",
+//   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjwFK0c2pcqo9o4R8hsecXXwSwGnIe/LzTtOkkBVlnQ7jF2rQfGiMAoST4hiI4YwFbQGZLPjsFchdBiJQzrjk/KaglyjuaFllEWzFbsLzNacL1WyPqqAWQL+Dctf7MyRlVQHrt8ofQMm5ZRFqoWeP1ryIGlWWTosQQnqm3c/2biJKEIILzyP5wWgWrH3WkwjoP68TtdqydTarkYlUUc6rdB7t/vkINgDMpOupwZ2AXKHLF0/WRoq8yrYIyfZ1CimctEAvxj5yvGNtohpFM0bokYXv2SKX0GLAsVI+zsUnknHpS6BzS5MU1giqULtaE23o8YLYNuVv+h95gXuW8rvO9wIDAQAB",
+   "manifest_version": 2,
+   "name": "NetvibesUX",
+//   "permissions": ["http://www.netvibes.com/*", "https://www.netvibes.com/*", "activeTab", "storage", "notifications", "videoCapture", "webview"],
+   "permissions": ["http://www.netvibes.com/*", "https://www.netvibes.com/*", "activeTab", "storage", "notifications", "http://sipt07.si.ehu.es/*"],
+//   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.0.1",
+   "web_accessible_resources": [ "css/*" ]
+}
