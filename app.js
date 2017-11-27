@@ -1,6 +1,7 @@
 const mongodb = require('mongodb');
 const WebSocket = require('ws');
-const ws = new WebSocket.Server({ port: 3000, ssl: true });
+const ws = new WebSocket.Server({
+    port: 8088, ssl: true, ssl_key: 'host.key', ssl_cert: 'host.cert' });
 const request = require('request');
 const htmlparser = require('node-html-parser');
 
