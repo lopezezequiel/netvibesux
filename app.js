@@ -3,7 +3,7 @@ const WebSocket = require('ws');
 const ws = new WebSocket.Server({
     port: 3000,
     //ssl_key: 'host.key', ssl_cert: 'host.cert',
-    host:'0.0.0.0'
+    //host:'0.0.0.0'
 });
 
 //    port: 3000, ssl: true, ssl_key: 'host.key', ssl_cert: 'host.cert' });
