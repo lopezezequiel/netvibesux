@@ -364,7 +364,7 @@ var Session = function(socket) {
                         });
                     }
 
-                    $this.response(error.length, warnings.length);
+                    $this.response(errors.length, warnings.length);
                 }
             }
         );
