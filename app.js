@@ -1,27 +1,24 @@
 const mongodb = require('mongodb');
 const WebSocket = require('ws');
-
-
 const express = require('express');
 const path = require('path');
-
-const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
-
-const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-
-const ws = new WebSocket.Server({port: process.env.PORT || 3000});
-
-//    port: 3000, ssl: true, ssl_key: 'host.key', ssl_cert: 'host.cert' });
+const mongoose = require('mongoose');
 const request = require('request');
 const htmlparser = require('node-html-parser');
 
-var url = "mongodb://localhost:27017/netvibesux";
-var url = "mongodb://" + process.env.DB_USER  + ":" + process.env.DB_PASSWORD  + "@ds139342.mlab.com:39342/netvibesux";
-var mongoose = require('mongoose');
+const PORT = process.env.PORT || 3000;
+const INDEX = path.join(__dirname, 'index.html');
+const url = "mongodb://" + process.env.DB_USER  + ":" + process.env.DB_PASSWORD  + "@ds139342.mlab.com:39342/netvibesux";
+
+
+const server = express()
+//  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+
+const ws = new WebSocket.Server({server: server});
+
+
 mongoose.connect(url);
 
 
