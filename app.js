@@ -13,7 +13,7 @@ const server = express()
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 
-const ws = new WebSocket.Server({server: server});
+const ws = new WebSocket.Server({port: process.env.PORT || 3000});
 
 //    port: 3000, ssl: true, ssl_key: 'host.key', ssl_cert: 'host.cert' });
 const request = require('request');
