@@ -3,7 +3,7 @@
     var CONFIG = {}
 
     CONFIG.SERVER = 'ws://netvibesux.herokuapp.com:3000';
-//    CONFIG.SERVER = 'ws://localhost:8080';
+//    CONFIG.SERVER = 'ws://localhost:8088';
 
     CONFIG.COOKIE_NAME = 'NETVIBES_UX_TEST_ID';
     CONFIG.FIRST_TAB_NAME = 'Tab1';

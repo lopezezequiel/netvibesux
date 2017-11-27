@@ -22,7 +22,7 @@
    "manifest_version": 2,
    "name": "NetvibesUX",
 //   "permissions": ["http://www.netvibes.com/*", "https://www.netvibes.com/*", "activeTab", "storage", "notifications", "videoCapture", "webview"],
-   "permissions": ['ws://netvibesux.herokuapp.com', "http://www.netvibes.com/*", "https://www.netvibes.com/*", "activeTab", "storage", "notifications", "http://sipt07.si.ehu.es/*"],
+   "permissions": ["http://netvibesux.herokuapp.com/*", "http://www.netvibes.com/*", "https://www.netvibes.com/*", "activeTab", "storage", "notifications", "http://sipt07.si.ehu.es/*"],
 //   "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "0.0.1",
    "web_accessible_resources": [ "css/*" ]
