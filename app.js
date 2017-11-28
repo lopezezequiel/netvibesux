@@ -7,15 +7,14 @@ const request = require('request');
 const htmlparser = require('node-html-parser');
 
 const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
+//const INDEX = path.join(__dirname, 'index.html');
 const url = "mongodb://" + process.env.DB_USER  + ":" + process.env.DB_PASSWORD  + "@ds139342.mlab.com:39342/netvibesux";
-
 
 const server = express()
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-
 const ws = new WebSocket.Server({server: server});
+//const ws = new WebSocket.Server({port: 8088});
 
 
 mongoose.connect(url);

@@ -3,7 +3,7 @@
     var CONFIG = {}
 
     CONFIG.SERVER = 'wss://netvibesux.herokuapp.com';
-    //CONFIG.SERVER = 'wss://localhost:8088';
+    //CONFIG.SERVER = 'ws://localhost:8088';
 
     CONFIG.COOKIE_NAME = 'NETVIBES_UX_TEST_ID';
     CONFIG.FIRST_TAB_NAME = 'Tab1';
@@ -356,8 +356,6 @@
                 appearance: face ? face.appearance : null,
                 emotions: face ? face.emotions : null
             }
-
-
 
             if (callbacks.onUpdate) {
                 callbacks.onUpdate.call(callbacks.onUpdate, new_status, timestamp);
@@ -1046,19 +1044,20 @@
 
             if(!window.location.href.match(CONFIG.HOME_URL_REGEXP)) {
                 window.location = CONFIG.HOME_URL;
+            } else {
+
+                var view = loadView(templates.mostrar_sitio);
+
+                view.elements.continuar.addEventListener('click', function() {
+                    gui.hide();
+                    setTimeout(function() {
+                        goto(CONFIG.STEPS.UNDERSTAND_APP);
+                    }, CONFIG.SHOW_APP_TIME);
+                });
+
+                gui.setView(view);
+                gui.show();
             }
-
-            var view = loadView(templates.mostrar_sitio);
-
-            view.elements.continuar.addEventListener('click', function() {
-                gui.hide();
-                setTimeout(function() {
-                    goto(CONFIG.STEPS.UNDERSTAND_APP);
-                }, CONFIG.SHOW_APP_TIME);
-            });
-
-            gui.setView(view);
-            gui.show();
         }
 
 
