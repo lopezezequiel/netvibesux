@@ -153,7 +153,7 @@ server.get('/', function(req, res) {
         var stats = []
         stats.push({title: 'Terminados', value: tests.length});
 
-        var value = tests.filter(function(test){
+        value = tests.filter(function(test){
             return test.knowApp;
         }).length;
         var percent = value * 100 / tests.length;
@@ -238,10 +238,11 @@ server.get('/tests/:testId', function(req, res) {
     });
 
 });
-server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+var s =  server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 
-const ws = new WebSocket.Server({server: server});
+const ws = new WebSocket.Server({server: s});
 //const ws = new WebSocket.Server({port: 8088});
 
 
