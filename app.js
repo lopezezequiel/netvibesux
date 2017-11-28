@@ -125,7 +125,10 @@ var Alt = mongoose.model('Alt', AltSchema);
 var Contrast = mongoose.model('Contrast', ContrastSchema);
 var Test = mongoose.model('Test', TestSchema);
 
+const server = express()
+    .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
+/*
 handlebars.registerHelper('percent', function(number) {
   return (number && number.toFixed) ? number.toFixed(2) + '%' : '';
 });
@@ -146,7 +149,6 @@ for(name in templates) {
 }
 
 
-const server = express()
 server.set('view_engine', 'pug');
 server.get('/', function(req, res) {
     Test.find({step: CONFIG.STEPS.FINISH}, function(error, tests) {
@@ -238,11 +240,10 @@ server.get('/tests/:testId', function(req, res) {
     });
 
 });
+*/
 
-var s =  server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-
-const ws = new WebSocket.Server({server: s});
+const ws = new WebSocket.Server({server: server});
 //const ws = new WebSocket.Server({port: 8088});
 
 
