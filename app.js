@@ -148,7 +148,7 @@ for(name in templates) {
 
 const server = express()
 server.set('view_engine', 'pug');
-server.get('/tests', function(req, res) {
+server.get('/', function(req, res) {
     Test.find({step: CONFIG.STEPS.FINISH}, function(error, tests) {
         var stats = []
         stats.push({title: 'Terminados', value: tests.length});
