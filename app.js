@@ -5,19 +5,32 @@ const path = require('path');
 const mongoose = require('mongoose');
 const request = require('request');
 const htmlparser = require('node-html-parser');
+const handlebars = require('handlebars');
+const fs = require('fs');
 
 const PORT = process.env.PORT || 3000;
-//const INDEX = path.join(__dirname, 'index.html');
 const url = "mongodb://" + process.env.DB_USER  + ":" + process.env.DB_PASSWORD  + "@ds139342.mlab.com:39342/netvibesux";
 
-const server = express()
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+var CONFIG = {}
+CONFIG.STEPS = {}
+CONFIG.STEPS.SET_UP = 'setUp';
+CONFIG.STEPS.USER_NAME = 'userName';
+CONFIG.STEPS.KNOW_APP = 'knowApp';
+CONFIG.STEPS.UNDERSTAND_APP = 'understandApp';
+CONFIG.STEPS.SHOW_APP = 'showApp';
+CONFIG.STEPS.EXPLAIN_APP = 'explainApp';
+CONFIG.STEPS.CAN_CREATE_TAB = 'canCreateTab';
+CONFIG.STEPS.WAIT_FOR_TAB = 'waitForTab';
+CONFIG.STEPS.CAN_CREATE_TAB_YES = 'canCreateTabYes';
+CONFIG.STEPS.CAN_CREATE_TAB_NO = 'canCreateTabNo';
+CONFIG.STEPS.BOT_CREATING_TAB = 'botCreatingTab';
+CONFIG.STEPS.CAN_ADD_MODULE = 'canAddModule';
+CONFIG.STEPS.WAIT_FOR_MODULE = 'waitForModule';
+CONFIG.STEPS.CAN_ADD_MODULE_YES = 'canAddModuleYes';
+CONFIG.STEPS.CAN_ADD_MODULE_NO = 'canAddModuleNo';
+CONFIG.STEPS.FINISH = 'finish';
 
-const ws = new WebSocket.Server({server: server});
-//const ws = new WebSocket.Server({port: 8088});
 
-
-mongoose.connect(url);
 
 
 var Schema = mongoose.Schema;
@@ -111,6 +124,128 @@ var WCAGError = mongoose.model('WCAGError', WCAGErrorSchema);
 var Alt = mongoose.model('Alt', AltSchema);
 var Contrast = mongoose.model('Contrast', ContrastSchema);
 var Test = mongoose.model('Test', TestSchema);
+
+
+handlebars.registerHelper('percent', function(number) {
+  return (number && number.toFixed) ? number.toFixed(2) + '%' : '';
+});
+handlebars.registerHelper('SiNo', function(flag) {
+  return (flag) ? 'Si' : 'No';
+});
+var templates = {
+    tests: './templates/tests.html',
+    test: './templates/test.html'
+}
+
+for(name in templates) {
+    (function(name) {
+        fs.readFile(templates[name], "utf8", function(err, data) {
+            templates[name] = handlebars.compile(data);
+        });
+    })(name);
+}
+
+
+const server = express()
+server.set('view_engine', 'pug');
+server.get('/tests', function(req, res) {
+    Test.find({step: CONFIG.STEPS.FINISH}, function(error, tests) {
+        var stats = []
+        stats.push({title: 'Terminados', value: tests.length});
+
+        var value = tests.filter(function(test){
+            return test.knowApp;
+        }).length;
+        var percent = value * 100 / tests.length;
+        stats.push({title: 'Conocían Netvibes previamente', value: value, percent: percent});
+
+
+        var value = tests.filter(function(test){
+            return test.understandApp;
+        }).length;
+        var percent = value * 100 / tests.length;
+        stats.push({title: 'Entendían para que sirve antes de explicarles', value: value, percent: percent});
+
+        var value = tests.filter(function(test){
+            return test.canCreateTab;
+        }).length;
+        var percent = value * 100 / tests.length;
+        stats.push({title: 'Pudieron crear la pestaña', value: value, percent: percent});
+
+
+        var value = tests.filter(function(test){
+            return test.canAddModule;
+        }).length;
+        var percent = value * 100 / tests.length;
+        stats.push({title: 'Pudieron agregar el módulo', value: value, percent: percent});
+
+        res.send(templates.tests({
+            tests: tests,
+            stats: stats
+        }));
+    });
+
+});
+
+server.get('/tests/:testId', function(req, res) {
+
+    Test.findOne({step: CONFIG.STEPS.FINISH, _id: req.params.testId}, function(error, test) {
+    MemoryInfo.find({test: test}, function(error, memory) {
+    Appearance.find({test: test}, function(error, appearance) {
+    Alt.find({test: test}, function(error, alts) {
+    Contrast.find({test: test}, function(error, contrasts) {
+    WCAGError.find({test: test}, function(error, wcagerrors) {
+    WCAGWarning.find({test: test}, function(error, wcagwarnings) {
+    Emotion.find({test: test}, function(error, emotions) {
+
+        if(test) test.memory = memory;
+        if(test) test.alts = alts;
+        if(test) test.contrasts = contrasts;
+        if(test) test.wcagerrors = wcagerrors;
+        if(test) test.wcagwarnings = wcagwarnings;
+        if(test) test.emotions = emotions;
+
+        if(test) {
+
+            var a = appearance.find(function(a) {
+                return a.age != 'Unknown';
+            });
+            test.age = (a) ? a.age : 'Desconocida';
+
+            a = appearance.find(function(a) {
+                return a.glasses != 'Unknown';
+            });
+            test.glasses = (a) ? a.glasses : 'Desconocido';
+
+            a = appearance.find(function(a) {
+                return a.gender != 'Unknown';
+            });
+            test.gender = (a) ? a.gender : 'Desconocido';
+
+            a = appearance.find(function(a) {
+                return a.ethnicity != 'Unknown';
+            });
+            test.ethnicity = (a) ? a.ethnicity : 'Desconocida';
+        }
+        res.send(templates.test({test: test}));
+    })
+    })
+    })
+    })
+    })
+    })
+    })
+    });
+
+});
+server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+
+const ws = new WebSocket.Server({server: server});
+//const ws = new WebSocket.Server({port: 8088});
+
+
+mongoose.connect(url);
 
 
 var Session = function(socket) {

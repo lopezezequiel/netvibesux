@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        {{#with test}}
+        <h2>Participante</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Nombre</td><td>{{name}}</td></tr>
+                <tr><td>Edad estimada</td><td>{{age}}</td></tr>
+                <tr><td>Etnia percibida</td><td>{{ethnicity}}</td></tr>
+                <tr><td>Usa lentes</td><td>{{glasses}}</td></tr>
+                <tr><td>Genero</td><td>{{gender}}</td></tr>
+                <tr><td>Conocía Netvibes previamente</td><td>{{SiNo knowApp}}</td></tr>
+                <tr><td>Entendía para que sirve antes de explicarle</td><td>{{SiNo understandApp}}</td></tr>
+                <tr><td>Pudo crear la pestaña</td><td>{{SiNo canCreateTab}}</td></tr>
+                <tr><td>Pudo agregar el módulo</td><td>{{SiNo canAddModule}}</td></tr>
+                <tr><td>Terminó</td><td>{{SiNo updated}}</td></tr>
+            </tbody>
+        </table>
+
+        <h2>Memoria</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Disponible</th>
+                    <th>Asignada</th>
+                    <th>Usada</th>
+                    <th>Porcentaje de uso</th>
+                    <th>Paso</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each memory}}
+                <tr>
+                    <td>{{heapLimit}}</td>
+                    <td>{{heapSize}}</td>
+                    <td>{{heapUsage}}</td>
+                    <td>{{percent usage}}</td>
+                    <td>{{step}}</td>
+                    <td>{{updated}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h2>Emociones</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Emoji</th>
+                    <th>Paso</th>
+                    <th>Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each emotions}}
+                <tr>
+                    <td>{{emoji}}</td>
+                    <td>{{step}}</td>
+                    <td>
+                        Enfado: {{percent anger}}<br>
+                        Desprecio: {{percent contempt}}<br>
+                        Disgusto: {{percent disgust}}<br>
+                        Compromiso: {{percent engagement}}<br>
+                        Miedo: {{percent fear}}<br>
+                        Alegría: {{percent joy}}<br>
+                        Tristeza: {{percent sadness}}<br>
+                        Sorpresa: {{percent surprise}}<br>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h2>Atributo ALT</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Correctos</th>
+                    <th>Porcentaje correcto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each alts}}
+                <tr>
+                    <td>{{total}}</td>
+                    <td>{{pass}}</td>
+                    <td>{{percent score}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h2>Contraste</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Cantidad</th>
+                    <th>Correctos</th>
+                    <th>Porcentaje correcto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each contrasts}}
+                <tr>
+                    <td>{{type}}</td>
+                    <td>{{total}}</td>
+                    <td>{{pass}}</td>
+                    <td>{{percent score}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h2>Errores según WCAG 1.0</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Checkpoint</th>
+                    <th>Descripcion</th>
+                    <th>Elemento</th>
+                    <th>Atributo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each wcagerrors}}
+                <tr>
+                    <td>{{checkpoint}}</td>
+                    <td>{{description}}</td>
+                    <td>{{element}}</td>
+                    <td>{{attribute}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h2>Advertencias según WCAG 1.0</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Checkpoint</th>
+                    <th>Descripcion</th>
+                    <th>Elemento</th>
+                    <th>Atributo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each wcagwarnings}}
+                <tr>
+                    <td>{{checkpoint}}</td>
+                    <td>{{description}}</td>
+                    <td>{{element}}</td>
+                    <td>{{attribute}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        {{/with}}
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
