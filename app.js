@@ -125,16 +125,17 @@ var Alt = mongoose.model('Alt', AltSchema);
 var Contrast = mongoose.model('Contrast', ContrastSchema);
 var Test = mongoose.model('Test', TestSchema);
 
-const server = express()
-    .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+const app = express()
 
-/*
+
 handlebars.registerHelper('percent', function(number) {
   return (number && number.toFixed) ? number.toFixed(2) + '%' : '';
 });
+
 handlebars.registerHelper('SiNo', function(flag) {
   return (flag) ? 'Si' : 'No';
 });
+
 var templates = {
     tests: './templates/tests.html',
     test: './templates/test.html'
@@ -149,8 +150,7 @@ for(name in templates) {
 }
 
 
-server.set('view_engine', 'pug');
-server.get('/', function(req, res) {
+app.get('/', function(req, res) {
     Test.find({step: CONFIG.STEPS.FINISH}, function(error, tests) {
         var stats = []
         stats.push({title: 'Terminados', value: tests.length});
@@ -189,7 +189,7 @@ server.get('/', function(req, res) {
 
 });
 
-server.get('/tests/:testId', function(req, res) {
+app.get('/tests/:testId', function(req, res) {
 
     Test.findOne({step: CONFIG.STEPS.FINISH, _id: req.params.testId}, function(error, test) {
     MemoryInfo.find({test: test}, function(error, memory) {
@@ -240,11 +240,9 @@ server.get('/tests/:testId', function(req, res) {
     });
 
 });
-*/
 
-
+var server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 const ws = new WebSocket.Server({server: server});
-//const ws = new WebSocket.Server({port: 8088});
 
 
 mongoose.connect(url);
