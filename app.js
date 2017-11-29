@@ -428,7 +428,7 @@ var Session = function(socket) {
             $this.response(test);
         });
     }
-/*
+
     this.setCanCreateTab = function(canCreateTab) {
         $this = this;
         test.canCreateTab = canCreateTab;
@@ -444,7 +444,7 @@ var Session = function(socket) {
             $this.response(test);
         });
     }
-*/
+
     this.wcag = function(html) {
         var $this = this;
         request.post(

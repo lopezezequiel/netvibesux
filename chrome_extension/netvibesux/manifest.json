@@ -5,11 +5,12 @@
   },
 
    "browser_action": {
-        "default_icon": {                    // optional
+        "default_icon": "images/play.png",
+        /*{                    // optional
             "16": "images/icon16.png",           // optional
             "24": "images/icon24.png",           // optional
             "32": "images/icon32.png"            // optional
-        },
+        },*/
         "default_title": "NetvibesUX"
    },
    "content_scripts": [{

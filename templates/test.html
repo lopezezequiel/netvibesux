@@ -29,13 +29,15 @@
             </tbody>
         </table>
 
+
         <h2>Tareas</h2>
+        {{#if tasks}}
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Completada</th>
-                    <th>Tiempo(s)</th>
+                    <th>Tiempo(ms)</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +50,9 @@
                 {{/each}}
             </tbody>
         </table>
+        {{else}}
+            <p>No tiene registros de tareas</p>
+        {{/if}}
 
         <h2>Memoria</h2>
         <table class="table table-striped">

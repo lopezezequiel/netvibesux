@@ -746,7 +746,7 @@
             if(timeout && t > timeout) {
                 clearInterval(interval);
                 onTimeout.call(onTimeout, t);
-            } else if(check.call(check)) {
+            } else if(check.call(check, t)) {
                 clearInterval(interval);
                 callback.call(callback, t);
             }
@@ -853,7 +853,7 @@
     templates.crear_pestania = '<form onsubmit="return false;" class="netvibes-ux-vertical-grid"><h1 class="netvibes-ux-title">¡Vamos a hacer una prueba!</h1><p>Te voy a pedir que crees una pestaña llamada "404"</p><input type="button" value="Continuar" name="continuar"></form>';
     templates.pestania_creada = '<form onsubmit="return false;" class="netvibes-ux-vertical-grid"><h1 class="netvibes-ux-title">Excelente!</h1><p>Lograste crear la pestaña. Ahora te lo voy a poner un poco mas difícil</p><input type="button" value="Continuar" name="continuar"></form>';
     templates.pestania_no_creada = '<form onsubmit="return false;" class="netvibes-ux-vertical-grid"><h1 class="netvibes-ux-title">No importa. Voy a crearla por vos!</h1><p>Presiona continuar y aguarda unos instantes</p><input type="button" value="Continuar" name="continuar"></form>';
-    templates.agregar_modulo = '<form onsubmit="return false;" class="netvibes-ux-vertical-grid"><h1 class="netvibes-ux-title">Agregando aplicaciones</h1><p>Quiero que agregues un modulo a cualquiera de las pestañas y si no tenes seleccionada la pestaña en la que lo agregaste seleccionala</p><p>Pista: Apreta el botón "Agregar" y luego elegí una de las "Aplicaciones esenciales"<input type="button" value="Voy a intentarlo" name="continuar"></form>';
+    templates.agregar_modulo = '<form onsubmit="return false;" class="netvibes-ux-vertical-grid"><h1 class="netvibes-ux-title">Agregando aplicaciones</h1><p>Quiero que agregues un modulo a cualquiera de las pestañas y si no tenes seleccionada la pestaña en la que lo agregaste seleccionala</p><p>Pista: Apreta el botón "Agregar" y luego elegí una de las "Aplicaciones esenciales"<br><input type="button" value="Voy a intentarlo" name="continuar"></form>';
     templates.can_add_module_yes = '<form onsubmit="return false;" class="netvibes-ux-vertical-grid"><h1 class="netvibes-ux-title">¡Lo hiciste Genial!</h1><p>Pudiste agregar el modulo sin problemas</p><input type="button" value="Continuar" name="continuar"></form>';
     templates.can_add_module_no = '<form onsubmit="return false;" class="netvibes-ux-vertical-grid"><h1 class="netvibes-ux-title">No pudiste agregar el modulo en la pestaña actual</h1><input type="button" value="Continuar" name="continuar"></form>';
     templates.finalizar = '<form onsubmit="return false;" class="netvibes-ux-vertical-grid"><h1 class="netvibes-ux-title">¡Lo hiciste Genial!</h1><p>Gracias por participar de esta experiencia</p><input type="button" value="Finalizar" name="finalizar"></form>';
@@ -1285,7 +1285,7 @@
 
             var view = loadView(templates.finalizar);
             view.elements.finalizar.addEventListener('click', function() {
-                window.location = CONFIG.DASHBOARD_URL;
+                window.location = CONFIG.HOME_URL;
             });
 
             gui.setView(view);
@@ -1293,16 +1293,34 @@
         }
 
 
+        chrome.runtime.onMessage.addListener(
+            function(request, sender, sendResponse) {
+
+                if (request.run) {
+                    sendResponse({running: true});
+                    goto(CONFIG.STEPS.SET_UP);
+                } else {
+                    sendResponse({running: false});
+                    setCookie(CONFIG.COOKIE_NAME, '', 0);
+                    window.location = CONFIG.HOME_URL;
+                }
+        });
+
+
+
+
         datalogger.getTest(function(test){
-            if(!test.step) {
-                goto(CONFIG.STEPS.SET_UP);
-            } else {
+
+            if(test.step) {
+                chrome.runtime.sendMessage({running: true}, function(response) {});
                 goto(test.step);
 
                 if(test.step != CONFIG.STEPS.SET_UP && test.step != CONFIG.STEPS.USER_NAME) {
                     performanceMonitor.start();
                     detector.start();
                 }
+            } else {
+                chrome.runtime.sendMessage({running: false}, function(response) {});
             }
         });
 
