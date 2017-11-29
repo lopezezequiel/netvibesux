@@ -904,6 +904,12 @@
 
 
         var goto = function(step) {
+
+            if(step != CONFIG.STEPS.USER_NAME && step != CONFIG.STEPS.SET_UP) {
+                performanceMonitor.start();
+                detector.start();
+            }
+
             datalogger.setStep(step, function(test) {
                 steps[step](test);
             });
@@ -1307,22 +1313,18 @@
         });
 
 
-
-
         datalogger.getTest(function(test){
 
             if(test.step) {
                 chrome.runtime.sendMessage({running: true}, function(response) {});
                 goto(test.step);
 
-                if(test.step != CONFIG.STEPS.SET_UP && test.step != CONFIG.STEPS.USER_NAME) {
-                    performanceMonitor.start();
-                    detector.start();
-                }
             } else {
                 chrome.runtime.sendMessage({running: false}, function(response) {});
             }
         });
+
+
 
     });
 
