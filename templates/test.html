@@ -25,9 +25,27 @@
                 <tr><td>Genero</td><td>{{gender}}</td></tr>
                 <tr><td>Conocía Netvibes previamente</td><td>{{SiNo knowApp}}</td></tr>
                 <tr><td>Entendía para que sirve antes de explicarle</td><td>{{SiNo understandApp}}</td></tr>
-                <tr><td>Pudo crear la pestaña</td><td>{{SiNo canCreateTab}}</td></tr>
-                <tr><td>Pudo agregar el módulo</td><td>{{SiNo canAddModule}}</td></tr>
-                <tr><td>Terminó</td><td>{{SiNo updated}}</td></tr>
+                <tr><td>Fecha</td><td>{{SiNo updated}}</td></tr>
+            </tbody>
+        </table>
+
+        <h2>Tareas</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Completada</th>
+                    <th>Tiempo(s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each tasks}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{SiNo done}}</td>
+                    <td>{{time}}</td>
+                </tr>
+                {{/each}}
             </tbody>
         </table>
 

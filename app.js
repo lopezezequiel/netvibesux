@@ -109,11 +109,16 @@ var TestSchema = new Schema({
     name: { type: String},
     knowApp: { type: Boolean},
     understandApp: { type: Boolean},
-    canCreateTab: { type: Boolean},
-    canAddModule: { type: Boolean},
     step: { type: String },
     updated: { type: Date, default: Date.now }
 });
+
+var TaskSchema = {
+    name: { type: String },
+    time: { type: Number },
+    done: { type: Boolean},
+    test: { type: Schema.Types.ObjectId, ref: 'Test' }
+}
 
 
 var MemoryInfo = mongoose.model('MemoryInfo', MemoryInfoSchema);
@@ -124,6 +129,7 @@ var WCAGError = mongoose.model('WCAGError', WCAGErrorSchema);
 var Alt = mongoose.model('Alt', AltSchema);
 var Contrast = mongoose.model('Contrast', ContrastSchema);
 var Test = mongoose.model('Test', TestSchema);
+var Task = mongoose.model('Task', TaskSchema);
 
 const app = express()
 
@@ -168,19 +174,6 @@ app.get('/', function(req, res) {
         var percent = value * 100 / tests.length;
         stats.push({title: 'Entendían para que sirve antes de explicarles', value: value, percent: percent});
 
-        var value = tests.filter(function(test){
-            return test.canCreateTab;
-        }).length;
-        var percent = value * 100 / tests.length;
-        stats.push({title: 'Pudieron crear la pestaña', value: value, percent: percent});
-
-
-        var value = tests.filter(function(test){
-            return test.canAddModule;
-        }).length;
-        var percent = value * 100 / tests.length;
-        stats.push({title: 'Pudieron agregar el módulo', value: value, percent: percent});
-
         res.send(templates.tests({
             tests: tests,
             stats: stats
@@ -199,6 +192,7 @@ app.get('/tests/:testId', function(req, res) {
     WCAGError.find({test: test}, function(error, wcagerrors) {
     WCAGWarning.find({test: test}, function(error, wcagwarnings) {
     Emotion.find({test: test}, function(error, emotions) {
+    Task.find({test: test}, function(error, tasks) {
 
         if(test) test.memory = memory;
         if(test) test.alts = alts;
@@ -206,6 +200,7 @@ app.get('/tests/:testId', function(req, res) {
         if(test) test.wcagerrors = wcagerrors;
         if(test) test.wcagwarnings = wcagwarnings;
         if(test) test.emotions = emotions;
+        if(test) test.tasks = tasks;
 
         if(test) {
 
@@ -230,6 +225,7 @@ app.get('/tests/:testId', function(req, res) {
             test.ethnicity = (a) ? a.ethnicity : 'Desconocida';
         }
         res.send(templates.test({test: test}));
+    })
     })
     })
     })
@@ -340,6 +336,16 @@ var Session = function(socket) {
         });
     }
 
+    this.task = function(task) {
+        var $this = this;
+        var t = new Task(task);
+        t.test = test;
+        t.save(function(err, t) {
+            if (err) throw err;
+            $this.response(t);
+        });
+    }
+
 /*
     this.wcagWarnings = function(warnings) {
         var $this = this;
@@ -422,7 +428,7 @@ var Session = function(socket) {
             $this.response(test);
         });
     }
-
+/*
     this.setCanCreateTab = function(canCreateTab) {
         $this = this;
         test.canCreateTab = canCreateTab;
@@ -438,7 +444,7 @@ var Session = function(socket) {
             $this.response(test);
         });
     }
-
+*/
     this.wcag = function(html) {
         var $this = this;
         request.post(

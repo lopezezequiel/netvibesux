@@ -20,6 +20,11 @@
     CONFIG.HOME_URL_REGEXP = /https\:\/\/www\.netvibes\.com(\/(..)?)?$/i;
     CONFIG.DASHBOARD_URL_REGEXP = /https\:\/\/www\.netvibes\.com\/dashboard/i;
 
+    CONFIG.TASKS = {}
+    CONFIG.TASKS.CREATE_TAB = 'Crear Pestaña';
+    CONFIG.TASKS.ADD_MODULE = 'Agregar módulo';
+
+
     CONFIG.STEPS = {}
     CONFIG.STEPS.SET_UP = 'setUp';
     CONFIG.STEPS.USER_NAME = 'userName';
@@ -748,6 +753,8 @@
         }, 300);
     }
 
+    var waitFor = checker;
+
 
     var CheckContrast = (function() {
         var getStats = function(root, filter) {
@@ -978,29 +985,34 @@
 
             if(!window.location.href.match(CONFIG.DASHBOARD_URL_REGEXP)) {
                 window.location = CONFIG.DASHBOARD_URL;
+            } else {
+
+                var view = loadView(templates.spinner);
+
+
+
+                waitFor(function() {
+                        return Bot.getTabsInfo().length > 0;
+                    }, function() {
+
+                        var tabsInfo = Bot.getTabsInfo();
+
+                        if(tabsInfo.length == 1 && tabsInfo[0].title == CONFIG.FIRST_TAB_NAME) {
+                            goto(CONFIG.STEPS.USER_NAME);
+                        } else {
+                            Bot.removeAllTabs(function() {
+                                window.location.reload();
+                            });
+                        }
+                    }, 5000, function() {
+                        Bot.createTab(CONFIG.FIRST_TAB_NAME, function() {
+                            window.location.reload();
+                        });
+                });
+
+                gui.setView(view);
+                gui.show();
             }
-
-            var view = loadView(templates.spinner);
-
-            setTimeout(function() {
-
-                var tabsInfo = Bot.getTabsInfo();
-
-                if(tabsInfo.length == 0) {
-                    Bot.createTab(CONFIG.FIRST_TAB_NAME, function() {
-                        window.location.reload();
-                    });
-                } if(tabsInfo.length == 1 && tabsInfo[0].title == CONFIG.FIRST_TAB_NAME) {
-                    goto(CONFIG.STEPS.USER_NAME);
-                } else {
-                    Bot.removeAllTabs(function() {
-                        window.location.reload();
-                    });
-                }
-            }, CONFIG.SPINNER_TIME);
-
-            gui.setView(view);
-            gui.show();
         }
 
 
@@ -1108,29 +1120,37 @@
 
             if(!window.location.href.match(CONFIG.DASHBOARD_URL_REGEXP)) {
                 window.location = CONFIG.DASHBOARD_URL;
-            }
+            } else {
 
-            gui.hide();
+                gui.hide();
 
-            setTimeout(analyzeDom, 2000);
+                setTimeout(analyzeDom, 2000);
 
-            checker(function() {
-                var tabs = document.querySelectorAll("ul.tabs>li.tab>span.innerTab>span.title");
-                for(var i=0; i<tabs.length; i++) {
-                    var tab = tabs[i];
-                    if(tab.innerHTML == CONFIG.TAB_NAME) {
-                        return true;
+                checker(function() {
+                    var tabs = document.querySelectorAll("ul.tabs>li.tab>span.innerTab>span.title");
+                    for(var i=0; i<tabs.length; i++) {
+                        var tab = tabs[i];
+                        if(tab.innerHTML == CONFIG.TAB_NAME) {
+                            return true;
+                        }
                     }
-                }
-            }, function() {
-                datalogger.setCanCreateTab(true, function(test) {
-                    goto(CONFIG.STEPS.CAN_CREATE_TAB_YES);
+                }, function(time) {
+                    datalogger.task({
+                            name: CONFIG.TASKS.CREATE_TAB,
+                            time: time,
+                            done: true
+                        }, function(test) {
+                        goto(CONFIG.STEPS.CAN_CREATE_TAB_YES);
+                    });
+                }, CONFIG.WAIT_FOR_TAB_TIME, function(test) {
+                    datalogger.task({
+                            name: CONFIG.TASKS.CREATE_TAB,
+                            done: false
+                        }, function(test) {
+                        goto(CONFIG.STEPS.CAN_CREATE_TAB_NO);
+                    });
                 });
-            }, CONFIG.WAIT_FOR_TAB_TIME, function(test) {
-                datalogger.setCanCreateTab(false, function(test) {
-                    goto(CONFIG.STEPS.CAN_CREATE_TAB_NO);
-                });
-            });
+            }
 
         }
 
@@ -1161,24 +1181,27 @@
 
         steps.botCreatingTab = function(test) {
 
-            var view = loadView(templates.spinner);
+            waitFor(function() {
+                    return Bot.getTabsInfo().length > 0;
+                }, function() {
+                    var titles = Bot.getTabsInfo().map(function(info) {
+                        return info.title;
+                    });
 
-            setTimeout(function() {
-
-                var tabTitles = Bot.getTabsInfo().map(function(tabInfo) {
-                    return tabInfo.title;
-                });
-
-                if(tabTitles.indexOf(CONFIG.TAB_NAME) == -1) {
+                    if(titles.indexOf(CONFIG.TAB_NAME) < 0) {
+                        Bot.createTab(CONFIG.TAB_NAME, function() {
+                            window.location.reload();
+                        });
+                    } else {
+                        goto(CONFIG.STEPS.CAN_ADD_MODULE);
+                    }
+                }, 10000, function() {
                     Bot.createTab(CONFIG.TAB_NAME, function() {
-                        console.log('Creada');
                         window.location.reload();
                     });
-                } else {
-                    goto(CONFIG.STEPS.CAN_ADD_MODULE);
-                }
-            }, 5000);
+            });
 
+            var view = loadView(templates.spinner);
             gui.setView(view);
             gui.show();
         }
@@ -1213,12 +1236,19 @@
 
             checker(function() {
                 return document.querySelectorAll("#maintable > div#modulesArea div.module").length > total;
-            }, function() {
-                datalogger.setCanAddModule(true, function(test) {
+            }, function(time) {
+                datalogger.task({
+                            name: CONFIG.TASKS.ADD_MODULE,
+                            time: time,
+                            done: true
+                        }, function(test) {
                     goto(CONFIG.STEPS.CAN_ADD_MODULE_YES);
                 });
             }, CONFIG.WAIT_FOR_MODULE_TIME, function() {
-                datalogger.setCanAddModule(false, function(test) {
+                datalogger.task({
+                            name: CONFIG.TASKS.ADD_MODULE,
+                            done: false
+                        }, function(test) {
                     goto(CONFIG.STEPS.CAN_ADD_MODULE_NO);
                 });
             });
