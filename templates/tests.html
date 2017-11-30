@@ -8,25 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <h2>Resultados</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Terminado</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each tests}}
-                <tr>
-                    <td><a href="/tests/{{_id}}">{{_id}}</a></td>
-                    <td>{{name}}</td>
-                    <td>{{updated}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
 
         <h2>Resúmen</h2>
         <table class="table table-striped">
@@ -43,6 +24,26 @@
                     <td>{{title}}</td>
                     <td>{{value}}</td>
                     <td>{{percent percent}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h2>Resultados</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Terminado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each tests}}
+                <tr>
+                    <td><a href="/tests/{{_id}}">{{_id}}</a></td>
+                    <td>{{name}}</td>
+                    <td>{{updated}}</td>
                 </tr>
                 {{/each}}
             </tbody>

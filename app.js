@@ -30,6 +30,9 @@ CONFIG.STEPS.CAN_ADD_MODULE_YES = 'canAddModuleYes';
 CONFIG.STEPS.CAN_ADD_MODULE_NO = 'canAddModuleNo';
 CONFIG.STEPS.FINISH = 'finish';
 
+CONFIG.TASKS = {}
+CONFIG.TASKS.CREATE_TAB = 'Crear Pestaña';
+CONFIG.TASKS.ADD_MODULE = 'Agregar módulo';
 
 
 
@@ -144,7 +147,12 @@ handlebars.registerHelper('SiNo', function(flag) {
 
 var templates = {
     tests: './templates/tests.html',
-    test: './templates/test.html'
+    tasks: './templates/tasks.html',
+    test: './templates/test.html',
+    alts: './templates/alts.html',
+    index: './templates/index.html',
+    plattforms: './templates/plattforms.html',
+    contrasts: './templates/contrasts.html'
 }
 
 for(name in templates) {
@@ -155,20 +163,51 @@ for(name in templates) {
     })(name);
 }
 
-
 app.get('/', function(req, res) {
+
+    res.send(templates.index({}));
+});
+
+
+
+app.get('/plattforms', function(req, res) {
+
+    var stats = []
+    var plattforms = [
+        {title: 'iPad Air 2 - iOS 9.1 - Landscape', pass: true},
+        {title: 'iPad Air 2 - iOS 9.1 - Portrait', pass: true},
+        {title: 'iPhone 6S  - iOS 9.1 - Landscape', pass: true},
+        {title: 'iPhone 6S  - iOS 9.1 - Portrait', pass: true},
+        {title: 'OS X High Sierra - Chrome 62', pass: true},
+        {title: 'OS X High Sierra - Firefox 57', pass: true},
+        {title: 'OS X High Sierra - Safari 11', pass: true},
+        {title: 'Win 10 - Chrome 62', pass: true},
+        {title: 'Win 10 - Edge 16', pass: true},
+        {title: 'Win 10 - Firefox 57', pass: true},
+        {title: 'Win 10 - IE 11', pass: true}
+    ]
+
+    stats.push({title: 'Plataformas probadas', value: plattforms.length});
+    stats.push({title: 'Plataformas correctas', value: plattforms.length, percent: 100});
+    res.send(templates.plattforms({plattforms: plattforms, stats: stats}));
+});
+
+
+
+app.get('/tests', function(req, res) {
     Test.find({step: CONFIG.STEPS.FINISH}, function(error, tests) {
+
         var stats = []
         stats.push({title: 'Terminados', value: tests.length});
 
-        value = tests.filter(function(test){
+        var value = tests.filter(function(test){
             return test.knowApp;
         }).length;
         var percent = value * 100 / tests.length;
         stats.push({title: 'Conocían Netvibes previamente', value: value, percent: percent});
 
 
-        var value = tests.filter(function(test){
+        value = tests.filter(function(test){
             return test.understandApp;
         }).length;
         var percent = value * 100 / tests.length;
@@ -179,8 +218,114 @@ app.get('/', function(req, res) {
             stats: stats
         }));
     });
-
 });
+
+app.get('/tasks', function(req, res) {
+    Test.find({step: CONFIG.STEPS.FINISH}, function(error, tests) {
+
+    var ids = tests.map(function(test) {
+        return test._id;
+    });
+
+    Task.find({test: {$in: ids }},  function(error, tasks) {
+    Task.find({test: {$in: ids }, name: CONFIG.TASKS.CREATE_TAB},  function(error, tasks_create_tab) {
+    Task.find({test: {$in: ids }, name: CONFIG.TASKS.ADD_MODULE},  function(error, tasks_add_module) {
+
+        var stats = [];
+
+        var done = tasks_create_tab.filter(function(task){
+            return task.done;
+        });
+        var percent = done.length * 100 / tasks_create_tab.length;
+        stats.push({title: 'Lograron completar tarea: Crear pestaña', value: done.length, percent: percent});
+
+        done = tasks_add_module.filter(function(task){
+            return task.done;
+        });
+        var percent = done.length * 100 / tasks_add_module.length;
+        stats.push({title: 'Lograron completar tarea: Agregar módulo', value: done.length, percent: percent});
+
+        res.send(templates.tasks({
+            tasks: tasks,
+            stats: stats
+        }));
+    })
+    })
+    })
+    });
+});
+
+app.get('/contrasts', function(req, res) {
+    Test.find({step: CONFIG.STEPS.FINISH}, function(error, tests) {
+
+    var ids = tests.map(function(test) {
+        return test._id;
+    });
+
+    Contrast.find({test: {$in: ids }},  function(error, contrasts) {
+
+        var stats = [];
+
+        var addStat = function(title, vision) {
+            var total = contrasts.filter(function(contrast){
+                return contrast.type == vision;
+            });
+            var pass = total.filter(function(contrast){
+                return contrast.pass;
+            });
+
+            var percent = pass.length * 100 / total.length;
+            stats.push({title: title, value: pass.length, percent: percent});
+        }
+
+        stats.push({title: 'Total', value: contrasts.length});
+        addStat('Correctos para visión normal', 'normal');
+        addStat('Correctos para visión con protanopia', 'protanopia');
+        addStat('Correctos para visión con protanomalia', 'protanomaly');
+        addStat('Correctos para visión con deuteranopia', 'deuteranopia');
+        addStat('Correctos para visión con deuteranomalia', 'deuteranomaly');
+
+
+        res.send(templates.contrasts({
+            contrasts: contrasts,
+            stats: stats
+        }));
+    })
+    });
+});
+
+app.get('/alts', function(req, res) {
+    Test.find({step: CONFIG.STEPS.FINISH}, function(error, tests) {
+
+    var ids = tests.map(function(test) {
+        return test._id;
+    });
+
+    Alt.find({test: {$in: ids }},  function(error, alts) {
+
+        var stats = [];
+
+        var score = 0;
+        var pass = 0;
+        var total = 0;
+        for(var i=0; i<alts.length; i++) {
+            score += alts[i].score;
+            pass += alts[i].pass;
+            total += alts[i].total;
+        }
+
+        var percent = score / alts.length;
+        stats.push({title: 'Total', value: total});
+        stats.push({title: 'Correctos', value: pass, percent: percent});
+
+        res.send(templates.alts({
+            alts: alts,
+            stats: stats
+        }));
+    })
+    });
+});
+
 
 app.get('/tests/:testId', function(req, res) {
 

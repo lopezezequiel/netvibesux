@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+        <h2>Resúmen</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each stats}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td>{{value}}</td>
+                    <td>{{percent percent}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h2>Plataformas</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Aprobado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each plattforms}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td>{{SiNo pass}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h2>Tests en Browserstack</h2>
+        <!--iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLdL2eXyhy7-ltOCRawjKAyjxIDTiAQ_mb" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>-->
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLdL2eXyhy7-ltOCRawjKAyjxIDTiAQ_mb" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
