@@ -236,14 +236,31 @@ app.get('/tasks', function(req, res) {
         var done = tasks_create_tab.filter(function(task){
             return task.done;
         });
+        var avg_time = done.map(function(task) {
+            return task.time;
+        }).reduce(function(a, b) {
+            return a + b;
+        }) / done.length;
+        avg_time = (avg_time/1000).toFixed(2);
+
+
         var percent = done.length * 100 / tasks_create_tab.length;
         stats.push({title: 'Lograron completar tarea: Crear pestaña', value: done.length, percent: percent});
+        stats.push({title: 'Tiempo promedio: Crear pestaña', value: avg_time});
 
         done = tasks_add_module.filter(function(task){
             return task.done;
         });
+        avg_time = done.map(function(task) {
+            return task.time;
+        }).reduce(function(a, b) {
+            return a + b;
+        }) / done.length;
+        avg_time = (avg_time/1000).toFixed(2);
+
         var percent = done.length * 100 / tasks_add_module.length;
         stats.push({title: 'Lograron completar tarea: Agregar módulo', value: done.length, percent: percent});
+        stats.push({title: 'Tiempo promedio: Agregar Módulo', value: avg_time});
 
         res.send(templates.tasks({
             tasks: tasks,

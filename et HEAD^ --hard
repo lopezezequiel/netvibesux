@@ -1,0 +1,233 @@
+[33mcommit 9f651695aba0baa7404191ffe0184779102169e2[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Thu Nov 30 19:34:45 2017 -0300
+
+    agregado tiempo promedio
+
+[33mcommit 559ee3d61ca250ff69332cc86da406df730d2618[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Thu Nov 30 17:24:55 2017 -0300
+
+    agregadas estadísticas
+
+[33mcommit bbda501ff21eb64d0cf39db21eb764bd4733e61c[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Wed Nov 29 19:27:34 2017 -0300
+
+    solucionado problema camara
+
+[33mcommit fed286ce7036f3e721458b5924ddd1fdc66fe3e6[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Wed Nov 29 05:00:19 2017 -0300
+
+    Agregado botón play/stop extensión
+
+[33mcommit 771b852479acee93a2a1b3ba41507768e2e65cdf[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Wed Nov 29 02:27:15 2017 -0300
+
+    Modificados schemas, mejorada extensión
+
+[33mcommit 379a070c5b807a6c866417feca8f5769d9425bd9[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Tue Nov 28 17:23:16 2017 -0300
+
+    arreglado problema websocket
+
+[33mcommit a96db70e417c6fa023c29b01805b2e61e9461eea[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Tue Nov 28 17:03:03 2017 -0300
+
+    arreglado problema websocket
+
+[33mcommit 2fad88ffc00860433fe4d4a867411925ef0ff359[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Tue Nov 28 16:56:10 2017 -0300
+
+    arreglado problema websocket
+
+[33mcommit efc42caba21f711c290d23c3ee5687e10b034fad[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Tue Nov 28 16:38:35 2017 -0300
+
+    cambiada url /tests a /
+
+[33mcommit f1020b877eb1ec67360d622ef2baa9c771d8e679[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Tue Nov 28 16:37:32 2017 -0300
+
+    Agregada página de resultados
+
+[33mcommit ff087eb916734c7341fec86665e8b3331075dfbe[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Tue Nov 28 04:33:31 2017 -0300
+
+    no comments
+
+[33mcommit 8dba083814e227e17347272b371e73a2177c17a5[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 19:16:37 2017 -0300
+
+    working
+
+[33mcommit d740651390caeda751a3187d61395542ee9a4879[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 18:44:53 2017 -0300
+
+    working
+
+[33mcommit 5388b31bc64c3fa7b551edc8a8c9006fcdd0c159[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 18:34:44 2017 -0300
+
+    working
+
+[33mcommit 5e4734340059d80630b615ee1f45bfad14f94a5e[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 17:51:14 2017 -0300
+
+    working
+
+[33mcommit 2ecd54138c26706f269d16ae9db115aca27a6d39[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 17:49:23 2017 -0300
+
+    working
+
+[33mcommit e387dc97b22d56580675af7cc8ca0e7c66e6835b[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 17:23:48 2017 -0300
+
+    no comments
+
+[33mcommit 72d162d850a74f22564c30f4b28da9646dfd0860[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 17:21:29 2017 -0300
+
+    no comments
+
+[33mcommit 7083bc467fb5f247a16f8d1017517b9fc5613333[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 17:17:21 2017 -0300
+
+    no comments
+
+[33mcommit 76ee3192e486015d6a111d56c2cea213610a2510[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 17:03:52 2017 -0300
+
+    no comments
+
+[33mcommit 2fa6a2d68e6d17c5c440b19323ab261b62ca0835[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 16:54:44 2017 -0300
+
+    no comments
+
+[33mcommit 6f8f1e30f919b229fd540acf05a1417ca3ddb842[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 16:52:56 2017 -0300
+
+    no comments
+
+[33mcommit 0366abc6b0af6d139cb11a9a78f0b7bbedccf19d[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 16:42:50 2017 -0300
+
+    no comments
+
+[33mcommit 310a5568523a36446d3f038c4be1229d83a6b55b[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 16:35:38 2017 -0300
+
+    no comments
+
+[33mcommit e78cafde5a77acb855f2f066287cc2865cc4268a[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 16:27:46 2017 -0300
+
+    no comments
+
+[33mcommit 5315aa99ea683582497d27252f6bda02dc3bdcf8[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 11:27:59 2017 -0300
+
+    no comments
+
+[33mcommit ec112ea90718980fe396393bda0c01d5a8ce0396[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 11:11:12 2017 -0300
+
+    no comments
+
+[33mcommit 2c9f8040aeda5f47728b9a205b22f9dbecf02fbd[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 10:53:43 2017 -0300
+
+    no comments
+
+[33mcommit bca22d0dd0c669a529d591280e1967f82f092c2d[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 10:45:58 2017 -0300
+
+    no comments
+
+[33mcommit 3aea537e0566f32e5f203cb5e3a69bdbcde72ea7[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 10:14:26 2017 -0300
+
+    no comments
+
+[33mcommit 36feb86783f233e6cfdd8ed7589d58cbbbb00680[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 10:07:53 2017 -0300
+
+    no comments
+
+[33mcommit f3db6fe480f7b7187ab1c6ad2b914b80860f005e[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 08:39:06 2017 -0300
+
+    no comments
+
+[33mcommit c3f9e9e9823d8547e409aea9261d30b6d28bc2fa[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 08:36:39 2017 -0300
+
+    no comments
+
+[33mcommit 0763b7068264c2de3f29a6c410503ddae8e4b7a0[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 08:23:10 2017 -0300
+
+    no comments
+
+[33mcommit e9c9c21025bcfc77ff039202b6a0db5ec256ecb4[m
+Author: López Ricardo Ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 08:04:13 2017 -0300
+
+    no comments
+
+[33mcommit 160664cb3a0f1f72f7b8534f21c83afd0a1a35c8[m
+Author: López Ricardo Ezequiel <ezequiel@notebook-ezequiel.lopez.com>
+Date:   Mon Nov 27 07:55:23 2017 -0300
+
+    no comments
+
+[33mcommit 530ea486533bff72e358dab2324f8084cc745e7b[m
+Author: López Ricardo Ezequiel <ezequiel@notebook-ezequiel.lopez.com>
+Date:   Mon Nov 27 07:40:46 2017 -0300
+
+    Initial commit
+
+[33mcommit bdd4bd868735aed93aab483425febb61a4d51a69[m
+Author: López Ricardo Ezequiel <ezequiel@notebook-ezequiel.lopez.com>
+Date:   Mon Nov 27 07:37:11 2017 -0300
+
+    Initial commit
+
+[33mcommit a645fde109ecdc509b5acf732651985729df9365[m
+Author: lopez ezequiel <mail@lopezezequiel.com>
+Date:   Mon Nov 27 07:23:53 2017 -0300
+
+    Initial commit
