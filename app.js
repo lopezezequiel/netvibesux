@@ -1,3 +1,7 @@
+/*
+Puede parecer irónico que este código sea para un trabajo de calidad del SW
+pero el objetivo era evaluar Netvibes, no el código
+*/
 const mongodb = require('mongodb');
 const WebSocket = require('ws');
 const express = require('express');
